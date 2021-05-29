@@ -4,7 +4,8 @@ const mongoose = require('mongoose')
 const bodyParser = require('body-parser');
 
 const app = express();
-const PORT= 4000;
+const PORT= process.env.PORT || 4000;
+
 
 global.__basedir = __dirname;
 //mongoose connection
