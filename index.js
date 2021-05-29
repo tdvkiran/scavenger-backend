@@ -9,7 +9,7 @@ const PORT= 4000;
 global.__basedir = __dirname;
 //mongoose connection
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb+srv://kiran:kiran@cluster0.slmx9.mongodb.net/scavenger',{
+mongoose.connect(process.env.MONGODB_URL,{
     useNewUrlParser: true, 
     useUnifiedTopology: true
 });
