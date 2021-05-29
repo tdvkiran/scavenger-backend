@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt')
 const readXlsxFile = require('read-excel-file/node')
 
-const { Branch } = require('../models/huntModel');
+const Branch = require('../models/huntModel');
 const { MongoBulkWriteError } = require('mongodb');
 
 
