@@ -10,9 +10,6 @@ const BranchSchema = new Schema({
     contactNumber: Array,
     branchIncharge: String,
     pincode: Array,
-    password: {
-        type: String,
-    },
     created_date:{
         type: Date,
         default:Date.now()

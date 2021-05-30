@@ -2,6 +2,7 @@ const bcrypt = require('bcrypt')
 const readXlsxFile = require('read-excel-file/node')
 
 const Branch = require('../models/huntModel');
+const User = require('../models/userModel');
 const { MongoBulkWriteError } = require('mongodb');
 
 
@@ -12,6 +13,7 @@ const importDataFromXLSX = async (req, res) => {
                 rows.shift();
 
                 const docs = [];
+                const users= [];
                 for (let row of rows) {
                     //console.log(row)
                     if (row[0] == null) {
@@ -31,13 +33,21 @@ const importDataFromXLSX = async (req, res) => {
                     if (branches != null) {
                         throw new MongoBulkWriteError('branch already exists ' + newBranch.branchName)
                     }
-                    newBranch.password = await bcrypt.hash(row[1] + 'pwd', 8);
+                    let newUser= new User({
+                        branchName: row[1],
+                        branchIncharge: row[5]
+                    })
+                    newUser.password = await bcrypt.hash(row[1] + 'pwd', 8);
+                    users.push(newUser);
                     docs.push(newBranch);
+
                 }
 
                 const options = { ordered: true };
                 const result = await Branch.insertMany(docs, options);
-                res.send(result);
+                const usersList = await User.insertMany(users,options);
+
+                res.send({'branches':result, 'users': usersList});
             })
             .catch(err => {
                 if (err.name == 'BulkWriteError')

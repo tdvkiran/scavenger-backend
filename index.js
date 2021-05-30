@@ -1,5 +1,6 @@
 const express = require('express');
-const routes = require('./src/routes/huntRoutes');
+const huntRoutes = require('./src/routes/huntRoutes');
+const userRoutes = require('./src/routes/userRoutes');
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser');
 
@@ -25,7 +26,8 @@ app.use(function(req, res, next) {
     next();
   });
 
-routes(app);
+huntRoutes(app);
+userRoutes(app);
 
 app.get('/',(req,res)=>{
     res.send(`Node Express server running on port ${PORT}`)
