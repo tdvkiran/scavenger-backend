@@ -31,7 +31,6 @@ userRoutes(app);
 
 app.get('/',(req,res)=>{
     res.send(`Node Express server running on port ${PORT}`)
-    //res.sendStatus
 })
 
 

@@ -17,11 +17,8 @@ const logout = async (req, res) => {
 
 const login = async (req, res) => {
     try {
-        console.log('login')
         const user = await User.findByCredential(req.body.branchName, req.body.password);
-        console.log('user');
         const token = await user.generateAuthToken();
-        console.log('token');
         res.send({ user, token });
     }
     catch (err) {
